@@ -20,8 +20,12 @@ namespace Library.DAL.Repositories
         //обновление имени пользователя по ID
         int UpdateName(int id , string name);
         //взять книгу в библиотеке
-        void TakeBook(User user , Book book);
+        void UserTakeBook(int id , Book book);
         //Получать булевый флаг о том, есть ли определенная книга на руках у пользователя
-        public bool IsBookUserHand(User user , Book book);
+         bool IsBookUserHand(int id , Book book);
+        //Получать количество книг на руках у пользователя
+        public int CountUserBook(int id);
+        //Получение последней вышедшей книг
+        
     }
 }

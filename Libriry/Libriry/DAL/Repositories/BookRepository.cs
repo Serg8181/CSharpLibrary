@@ -73,5 +73,16 @@ namespace Library.DAL.Repositories
             return false;
 
         }
+
+        public Book LatestBookPublished()
+        {
+
+          
+        }
+
+        public List<Book> GetSortTitleBooks()
+        {
+           
+        }
     }
 }

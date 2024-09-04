@@ -43,21 +43,33 @@ namespace Library.DAL.Repositories
             return db.SaveChanges();
         }
 
-        public void TakeBook(User user , Book book)
+        public void UserTakeBook(int id , Book book)
         {
             
-            //user.Books.Add(book);
-            //db.Users.Add(user)
-            //db.SaveChanges();
+           
+            var myUser = db.Users.Where(x=>x.Id == id).FirstOrDefault();
+            myUser.Books.Add(book);
+            db.SaveChanges();
         }
 
-        public bool IsBookUserHand(User user, Book book)
+        public bool IsBookUserHand(int id , Book book)
         {
           
+            var result = db.Users.Where(x=>x.Id == id).Where(x=>x.Books.Contains(book)).Any();
 
-            return false;
+            return result;
         
         }
 
+        public int CountUserBook(int id)
+        {
+            var user =  db.Users.Where(x => x.Id == id).FirstOrDefault();
+            
+            return user.Books.Count(); 
+
+           
+        }
+
+        
     }
 }

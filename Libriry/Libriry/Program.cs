@@ -35,13 +35,13 @@ public class Program
             bookRep.Create(book6);
 
 
-            userRep.TakeBook(user1, book2);
+            userRep.UserTakeBook(user1.Id, book2);
 
             Console.WriteLine("_________________________");
 
-            if(userRep.IsBookUserHand(user1 , book2))
+            if(userRep.IsBookUserHand(user1.Id , book2))
             {
-
+                Console.WriteLine($"Книга {book2.Title} находится у {user1.Name} ") ;
             }
 
             Console.WriteLine("_________________________");
