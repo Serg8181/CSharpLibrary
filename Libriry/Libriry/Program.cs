@@ -34,6 +34,16 @@ public class Program
             bookRep.Create(book5);
             bookRep.Create(book6);
 
+
+            userRep.TakeBook(user1, book2);
+
+            Console.WriteLine("_________________________");
+
+            if(userRep.IsBookUserHand(user1 , book2))
+            {
+
+            }
+
             Console.WriteLine("_________________________");
             Console.WriteLine("Книги в библиотеке: ");
 
