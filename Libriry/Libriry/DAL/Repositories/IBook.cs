@@ -34,5 +34,6 @@ namespace Library.DAL.Repositories
         //Получение списка всех книг, отсортированного в алфавитном порядке по названию.
         List<Book> GetSortTitleBooks();
         //Получение списка всех книг, отсортированного в порядке убывания года их выхода.
+        List<Book> GetSortYearBooks();
     }
 }

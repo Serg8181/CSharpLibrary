@@ -45,9 +45,10 @@ namespace Library.DAL.Repositories
 
         public void UserTakeBook(int id , Book book)
         {
-            
-           
-            var myUser = db.Users.Where(x=>x.Id == id).FirstOrDefault();
+                       
+            var myUser = db.Users.Where(x=>x.Id == id).FirstOrDefault();           
+            book.UserId = myUser.Id;
+            book.User = myUser;
             myUser.Books.Add(book);
             db.SaveChanges();
         }
@@ -55,7 +56,7 @@ namespace Library.DAL.Repositories
         public bool IsBookUserHand(int id , Book book)
         {
           
-            var result = db.Users.Where(x=>x.Id == id).Where(x=>x.Books.Contains(book)).Any();
+            var result = db.Users.Where(x=>x.Id == id).First().Books.Contains(book);
 
             return result;
         
@@ -63,10 +64,8 @@ namespace Library.DAL.Repositories
 
         public int CountUserBook(int id)
         {
-            var user =  db.Users.Where(x => x.Id == id).FirstOrDefault();
-            
+            var user =  db.Users.Where(x => x.Id == id).FirstOrDefault();            
             return user.Books.Count(); 
-
            
         }
 

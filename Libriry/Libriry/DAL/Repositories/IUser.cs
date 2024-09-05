@@ -25,7 +25,7 @@ namespace Library.DAL.Repositories
          bool IsBookUserHand(int id , Book book);
         //Получать количество книг на руках у пользователя
         public int CountUserBook(int id);
-        //Получение последней вышедшей книг
+        
         
     }
 }

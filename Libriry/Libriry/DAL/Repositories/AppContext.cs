@@ -22,7 +22,8 @@ namespace Library.DAL.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-38FCAKT\SQLEXPRESS;Database=Library;Trusted_Connection=True;TrustServerCertificate=True;");
+            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-38FCAKT\SQLEXPRESS;Database=Library;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Data Source = DESKTOP-O9VR7FS\SQLEXPRESS;Database=Library;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }

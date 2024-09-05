@@ -10,11 +10,11 @@ public class Program
 
 
             var book1 = new Book { Title = "Азбука1", Year = 1980, Author ="Тютчев", Genre = "Научная литература"};
-            var book2 = new Book { Title = "Азбука2", Year = 1990, Author = "Тургенев", Genre = "Фантастика" };
+            var book2 = new Book { Title = "Букварь2", Year = 1990, Author = "Тургенев", Genre = "Фантастика" };
             var book3 = new Book { Title = "Азбука3", Year = 1999, Author = "Толстой", Genre = "Художественная литература" };
-            var book4 = new Book { Title = "Азбука4", Year = 1965, Author = "Тютчев", Genre = "Научная литература" };
-            var book5 = new Book { Title = "Азбука5", Year = 1991, Author = "Тургенев", Genre = "Фантастика" };
-            var book6 = new Book { Title = "Азбука6", Year = 2005, Author = "Тургенев", Genre = "Фантастика" };
+            var book4 = new Book { Title = "Математика4", Year = 1965, Author = "Тютчев", Genre = "Научная литература" };
+            var book5 = new Book { Title = "Словарь5", Year = 1991, Author = "Тургенев", Genre = "Фантастика" };
+            var book6 = new Book { Title = "Термодинамика6", Year = 2005, Author = "Тургенев", Genre = "Фантастика" };
 
             var user1 = new User { Name = " Олег", Email = "oleg@mail.ru" };
             var user2 = new User { Name = " Дмитрий", Email = "dima@mail.ru" };
@@ -43,6 +43,12 @@ public class Program
             {
                 Console.WriteLine($"Книга {book2.Title} находится у {user1.Name} ") ;
             }
+            Console.WriteLine("_________________________");
+            Console.WriteLine("Количество книг на руках у пользователей:");
+            foreach (var user in userRep.FindAll())
+            {
+                Console.WriteLine($"{user.Name} - {userRep.CountUserBook(user.Id)} книг");
+            }
 
             Console.WriteLine("_________________________");
             Console.WriteLine("Книги в библиотеке: ");
@@ -51,6 +57,24 @@ public class Program
             {
                 Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
             }
+            Console.WriteLine("Книги в алфавитном порядке: ");
+            foreach(var book in bookRep.GetSortTitleBooks())
+            {
+                Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
+            }
+            Console.WriteLine("_________________________");
+            Console.WriteLine("Книги в порядке убывания года публикации: ");
+            foreach (var book in bookRep.GetSortYearBooks())
+            {
+                Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
+            }
+            Console.WriteLine("_________________________");
+            Console.WriteLine("Последняя опубликованная книга: ");
+
+            var bookLast = bookRep.LatestBookPublished();
+            Console.WriteLine(bookLast.Title + " " + bookLast.Author + " " + bookLast.Year + " год.");
+
+            Console.WriteLine();
             Console.WriteLine("Пользователи библиотеки: ");
 
             foreach (var user in userRep.FindAll())
@@ -96,6 +120,7 @@ public class Program
             Console.WriteLine("__________________________");
 
             bool isBook = bookRep.IsBookAuthorTitle("Тютчев", "Азбука5");
+
             if (isBook) Console.WriteLine("Книга Тютчева с названием Азбука5 в библиотеке присутствует.");
             else Console.WriteLine("Книга Тютчева с названием Азбука5 в библиотеке отсутствует.");
 

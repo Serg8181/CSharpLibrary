@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -76,13 +77,22 @@ namespace Library.DAL.Repositories
 
         public Book LatestBookPublished()
         {
+            int lastYear = db.Books.Max(x => x.Year);
 
-          
+            return  db.Books.Where(x => x.Year == lastYear).FirstOrDefault();
         }
 
         public List<Book> GetSortTitleBooks()
         {
+            return db.Books.OrderBy(x=>x.Title).ToList();
            
+        }
+
+        public List<Book> GetSortYearBooks()
+        {
+            var list = db.Books.OrderBy(x => x.Year).ToList();
+            list.Reverse();
+            return list;
         }
     }
 }
