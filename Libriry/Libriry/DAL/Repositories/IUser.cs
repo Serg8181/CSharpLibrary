@@ -18,7 +18,7 @@ namespace Library.DAL.Repositories
         //удаление из базы данных
         int Delete(User user);
         //обновление имени пользователя по ID
-        int UpdateName(int id , string name);
+        bool UpdateName(int id , string name);
         //взять книгу в библиотеке
         void UserTakeBook(int id , Book book);
         //Получать булевый флаг о том, есть ли определенная книга на руках у пользователя

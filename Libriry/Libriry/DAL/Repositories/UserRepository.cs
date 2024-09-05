@@ -33,16 +33,27 @@ namespace Library.DAL.Repositories
 
         public User FindById(int id)
         { 
-            return db.Users.Where(user => user.Id == id).FirstOrDefault();
-        }
-                
-        public int UpdateName(int id, string name)
-        {
             var user = db.Users.Where(user => user.Id == id).FirstOrDefault();
-            user.Name = name;
-            return db.SaveChanges();
+            if (user != null)
+            {
+                return user;
+            }
+            Console.WriteLine($"Пользователь с ID {id} не найден.");
+            return null;
         }
 
+        public bool UpdateName(int id, string name)
+        {
+            var user = db.Users.Where(user => user.Id == id).FirstOrDefault();
+            if ((user != null))
+            {
+                user.Name = name;
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
         public void UserTakeBook(int id , Book book)
         {
                        
@@ -64,9 +75,13 @@ namespace Library.DAL.Repositories
 
         public int CountUserBook(int id)
         {
-            var user =  db.Users.Where(x => x.Id == id).FirstOrDefault();            
-            return user.Books.Count(); 
-           
+            var user =  db.Users.Where(x => x.Id == id).FirstOrDefault();  
+            if(user!= null)
+            {
+                return user.Books.Count();
+            }
+            Console.WriteLine($"Пользователь с ID {id} не найден.");
+            return 0;
         }
 
         

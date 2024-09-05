@@ -18,7 +18,7 @@ namespace Library.DAL.Repositories
         //удаление из базы данных
         int Delete(Book book);
         //обновление года выпуска книги по ID
-        int UpdateYear(int id, int year);
+        bool UpdateYear(int id, int year);
         //Получать список книг определенного жанра и вышедших между определенными годами
         public List<Book> SearchBookGenreAndYears(string genre, int startYear, int endYear);
         //Получать количество книг определенного автора в библиотеке

@@ -34,22 +34,6 @@ public class Program
             bookRep.Create(book5);
             bookRep.Create(book6);
 
-
-            userRep.UserTakeBook(user1.Id, book2);
-
-            Console.WriteLine("_________________________");
-
-            if(userRep.IsBookUserHand(user1.Id , book2))
-            {
-                Console.WriteLine($"Книга {book2.Title} находится у {user1.Name} ") ;
-            }
-            Console.WriteLine("_________________________");
-            Console.WriteLine("Количество книг на руках у пользователей:");
-            foreach (var user in userRep.FindAll())
-            {
-                Console.WriteLine($"{user.Name} - {userRep.CountUserBook(user.Id)} книг");
-            }
-
             Console.WriteLine("_________________________");
             Console.WriteLine("Книги в библиотеке: ");
 
@@ -58,7 +42,7 @@ public class Program
                 Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
             }
             Console.WriteLine("Книги в алфавитном порядке: ");
-            foreach(var book in bookRep.GetSortTitleBooks())
+            foreach (var book in bookRep.GetSortTitleBooks())
             {
                 Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
             }
@@ -82,29 +66,65 @@ public class Program
                 Console.WriteLine(user.Id + " " + user.Name + " " + user.Email);
             }
             Console.WriteLine("_________________________");
+            Console.WriteLine($"Выданы книги {book2.Title} и {book1.Title} ") ;
+            userRep.UserTakeBook(user1.Id, book2);
+            userRep.UserTakeBook(user2.Id, book1);
+
+
+            Console.WriteLine("_________________________");
+            Console.WriteLine($"Выдана ли книга {book2.Title} и какому пользователю?");
+
+            if(userRep.IsBookUserHand(user1.Id , book2))
+            {
+                Console.WriteLine($"Книга {book2.Title} выдана. Находится у {user1.Name} ") ;
+            }
+            Console.WriteLine("_________________________");
+            Console.WriteLine("Количество книг на руках у пользователей:");
+            foreach (var user in userRep.FindAll())
+            {
+                Console.WriteLine($"{user.Name} - {userRep.CountUserBook(user.Id)} книг");
+            }
+
+
 
             //bookRep.Delete(book1);
             //userRep.Delete(user1);
 
-
+            Console.WriteLine("Поиск книг по ID: ");
             var mySearchBook = bookRep.FindById(2);
-            var myserchUser = userRep.FindById(1);
-
             Console.WriteLine(mySearchBook.Id + " " + mySearchBook.Title + " " + mySearchBook.Year);
+            Console.WriteLine("_________________________");
+            Console.WriteLine("Поиск пользователя по ID: ");
+            var myserchUser = userRep.FindById(1);
             Console.WriteLine(myserchUser.Id + " " + myserchUser.Name + " " + myserchUser.Email);
             Console.WriteLine("_________________________");
+            Console.WriteLine("Обновление года выпуска книги: ");
+            if(bookRep.UpdateYear(2, 1995))
+            {
+                Console.WriteLine("Обновление года выпуска книги с ID 2 успешно.");
+            }
+            else
+            {
+                Console.WriteLine("Книги с ID 2 не существует.");
+            }
+            Console.WriteLine("Обновление имени пользователя: ");
 
-            var bookForUpdate = bookRep.UpdateYear(2, 1995);
-            var userForUpdate = userRep.UpdateName(1, "Аня");
-
+            if(userRep.UpdateName(1, "Аня"))
+            {
+                Console.WriteLine("Обновление имени пользователя с ID 1 успешно.");
+            }
+            else
+            {
+                Console.WriteLine("Пользователя с ID 1 не существует.");
+            }
+            Console.WriteLine("Найти все книги:");
             foreach (var book in bookRep.FindAll())
             {
                 Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);
             }
-
             Console.WriteLine("__________________________");
 
-           
+            Console.WriteLine("Найти книги по жанру между определенными годами: ");
             foreach (var book in bookRep.SearchBookGenreAndYears("Фантастика", 1990, 2000))
             {
                 Console.WriteLine(book.Id + " " + book.Title + " " + book.Year);

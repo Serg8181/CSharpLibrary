@@ -36,14 +36,28 @@ namespace Library.DAL.Repositories
 
         public Book FindById(int id)
         {
-            return db.Books.Where(book => book.Id == id).FirstOrDefault();
-        }
+            var book = db.Books.Where(book => book.Id == id).FirstOrDefault();
 
-        public int UpdateYear(int id , int year)
+            if (book == null) 
+            {
+                Console.WriteLine($"Книга с ID {id} не существует.");
+                return null;
+            } 
+            return book;
+        }
+         
+
+        public bool UpdateYear(int id , int year)
         {
             var book = db.Books.Where(book => book.Id == id).FirstOrDefault();
+            if (book == null)
+            {
+                Console.WriteLine($"Книга с ID {id} не существует.");
+                return false;
+            }
             book.Year = year;
-            return db.SaveChanges();
+            db.SaveChanges();
+            return true;
         }
 
         public List<Book> SearchBookGenreAndYears(string genre, int startYear, int endYear)
@@ -56,14 +70,12 @@ namespace Library.DAL.Repositories
         public int CountSearchBookAuthor(string author)
         {
            var query = db.Books.Count(x=>x.Author == author);
-
             return query;
         }
 
         public int CountSearchBookGenre(string genre)
         {
             var query = db.Books.Count(x => x.Genre == genre);
-
             return query;
         }
 
@@ -78,8 +90,11 @@ namespace Library.DAL.Repositories
         public Book LatestBookPublished()
         {
             int lastYear = db.Books.Max(x => x.Year);
+            var query = db.Books.Where(x => x.Year == lastYear).FirstOrDefault();
+            if(query != null) return query;
 
-            return  db.Books.Where(x => x.Year == lastYear).FirstOrDefault();
+            Console.WriteLine("Последняя опубликованная книга не найдена.");
+            return null;
         }
 
         public List<Book> GetSortTitleBooks()
